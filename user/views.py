@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
 
 # Create your views here.
-def user(request):
+def UserProfile(request):
     return HttpResponse('This is user')
