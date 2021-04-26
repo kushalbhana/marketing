@@ -28,3 +28,11 @@ def contact(request):
     
 def about(request):
     return render(request, 'home/about.html')
+
+
+
+# Handle User Login and Signups
+def HandleSignUp(request):
+    return render(request, 'home/signup.html')
+
+
