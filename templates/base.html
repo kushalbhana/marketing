@@ -28,12 +28,19 @@
           <li class="nav-item">
             <a class="nav-link {% block homeactive %} {% endblock homeactive %}" aria-current="page" href="/">Home</a>
           </li>
+
+           <li class="nav-item">
+            <a class="nav-link {% block aboutactive %} {% endblock aboutactive %}" href="/about">About Us</a>
+          </li>
+          
           <li class="nav-item">
             <a class="nav-link {% block contactactive %} {% endblock contactactive %}" href="/contact">Contact Us</a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link {% block aboutactive %} {% endblock aboutactive %}" href="/about">About Us</a>
+            <a class="nav-link {% block blogactive %} {% endblock blogactive %}" href="/blog">Blog</a>
           </li>
+         
 
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -48,6 +55,7 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
+
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
@@ -55,6 +63,18 @@
       </div>
     </div>
   </nav>
+
+
+ {% for message in messages  %}            
+      <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            <strong>Message : </strong> {{ message }}
+            <button type="button" class="Close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true"> &times;</span>
+            </button>
+          </div>
+      {% endfor %}
+
+
 
   {% block body %}{% endblock body %}
 
