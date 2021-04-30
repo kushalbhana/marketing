@@ -107,14 +107,15 @@
 </div>
 
 
- {% for message in messages  %}            
-      <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
-            <strong>Message : </strong> {{ message }}
-            <button type="button" class="Close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true"> &times;</span>
-            </button>
-          </div>
+ {% for message in messages  %} 
+
+     <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+  <strong>Message: </strong> {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>           
+    
       {% endfor %}
+  
 
 
 

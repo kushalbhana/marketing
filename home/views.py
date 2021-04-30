@@ -42,11 +42,13 @@ def HandleUserSignUp(request):
     if request.method == 'POST':
         # to create user
         if request.POST['pass1'] == request.POST['pass2']:
+
             # both th password matched
             # now check previous user exists
             try:
                 user= User.objects.get(username=request.POST['username'])
-                return render(request, 'home/register.html', {'error': 'Username has already taken' })
+                messages.error(request, 'The Username you entered is already taken')
+                return render(request, 'home/signup.html')
             except User.DoesNotExist:
                 user= User.objects.create_user(username= request.POST['username'], password= request.POST['pass1'])
 
@@ -63,7 +65,8 @@ def HandleUserSignUp(request):
                 auth.login(request,user)
                 return HttpResponse('Signned up !')
         else:
-            return render(request, 'home/register.html', {'error':'Password don\'t match' })
+            messages.error(request, 'Both the Passwords you entered does not match')
+            return render(request, 'home/signup.html')
     else:
         return render(request, 'register.html')
 
