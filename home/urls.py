@@ -9,6 +9,7 @@ urlpatterns = [
     # path('search', views.search, name="search"),
     # path('search', views.search, name="search"),
     path('signup', views.HandleSignUp, name="HandleSignUp"),
+    path('createaccount', views.HandleUserSignUp, name="HandleUserSignUp"),
     # path('login', views.handleLogin, name="handleLogin"),
     # path('logout', views.handleLogout, name="handleLogout"),
 ]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Contact(models.Model):
@@ -11,3 +12,15 @@ class Contact(models.Model):
 
      def __str__(self):
          return 'This message is from ' + self.name
+
+class extendeduser(models.Model):
+    channel_name= models.CharField(max_length=50)
+    channel_type= models.CharField(max_length=50)
+    link= models.TextField(max_length=100)
+    category= models.CharField(max_length=50)
+    phnno= models.CharField(max_length=12, default='')
+    gender= models.CharField(max_length=8)
+    desc= models.TextField(max_length=500, default='')
+    tags=models.CharField(max_length=50, default='')
+    channel_logo= models.ImageField(default=None)
+    user= models.OneToOneField(User, on_delete= models.CASCADE)

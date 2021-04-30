@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
-from home.models import Contact
+from home.models import Contact, extendeduser
 from django.contrib import messages 
+from django.contrib.auth.models import User
+from django.contrib import auth
 
 
 
@@ -36,3 +38,33 @@ def HandleSignUp(request):
     return render(request, 'home/signup.html')
 
 
+def HandleUserSignUp(request):
+    if request.method == 'POST':
+        # to create user
+        if request.POST['pass1'] == request.POST['pass2']:
+            # both th password matched
+            # now check previous user exists
+            try:
+                user= User.objects.get(username=request.POST['username'])
+                return render(request, 'home/register.html', {'error': 'Username has already taken' })
+            except User.DoesNotExist:
+                user= User.objects.create_user(username= request.POST['username'], password= request.POST['pass1'])
+
+                # Now to fill the data of extended feild
+                chnl_name= request.POST['chanel_name']
+                id_typ= request.POST['id_type']
+                email= request.POST['email']
+                link= request.POST['link']
+                category= request.POST['category']
+
+                newextendeduser= extendeduser(channel_name= chnl_name, channel_type= id_typ, link= link, category= category, user=user)
+                newextendeduser.save()
+                
+                auth.login(request,user)
+                return HttpResponse('Signned up !')
+        else:
+            return render(request, 'home/register.html', {'error':'Password don\'t match' })
+    else:
+        return render(request, 'register.html')
+
+    
