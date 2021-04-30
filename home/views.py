@@ -53,17 +53,20 @@ def HandleUserSignUp(request):
                 user= User.objects.create_user(username= request.POST['username'], password= request.POST['pass1'])
 
                 # Now to fill the data of extended feild
+                username= request.POST['username']
                 chnl_name= request.POST['chanel_name']
                 id_typ= request.POST['id_type']
                 email= request.POST['email']
                 link= request.POST['link']
                 category= request.POST['category']
 
-                newextendeduser= extendeduser(channel_name= chnl_name, channel_type= id_typ, link= link, category= category, user=user)
+                newextendeduser= extendeduser( username= username ,channel_name= chnl_name, channel_type= id_typ, link= link, category= category, user=user)
                 newextendeduser.save()
                 
                 auth.login(request,user)
-                return HttpResponse('Signned up !')
+                messages.success(request, 'Account Successfully Created')
+                return render(request, 'home/index.html')
+
         else:
             messages.error(request, 'Both the Passwords you entered does not match')
             return render(request, 'home/signup.html')
