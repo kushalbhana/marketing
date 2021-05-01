@@ -42,6 +42,7 @@ def HandleUserSignUp(request):
     if request.method == 'POST':
         # to create user
         if request.POST['pass1'] == request.POST['pass2']:
+            
 
             # both th password matched
             # now check previous user exists
@@ -65,12 +66,18 @@ def HandleUserSignUp(request):
                 
                 auth.login(request,user)
                 messages.success(request, 'Account Successfully Created')
-                return render(request, 'home/index.html')
+                return render(request, 'home/userdetails.html')
 
         else:
             messages.error(request, 'Both the Passwords you entered does not match')
             return render(request, 'home/signup.html')
     else:
         return render(request, 'register.html')
+
+def userdetails(request):
+    if method=='POST':
+        pass
+    else:
+        pass
 
     

@@ -9,17 +9,17 @@
 <form action='createaccount' method='post'>{% csrf_token %}
   <div class="mb-3 my-4">
     <label for="exampleInputEmail1" class="form-label">Username</label>
-    <input type="text" class="form-control" id='username' name='username' aria-describedby="emailHelp">
+    <input type="text" class="form-control" id='username' name='username' aria-describedby="emailHelp" Required>
   </div>
 
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label"> Channel/Page name</label>
-    <input type="text" class="form-control" id="chanel_name" name='chanel_name' aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="chanel_name" name='chanel_name' aria-describedby="emailHelp" Required>
   </div>
 
     <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Youtube/Instagram</label>
-    <select class="form-select" aria-label="Default select example" id='id_type' name='id_type'>
+    <select class="form-select" aria-label="Default select example" id='id_type' name='id_type' Required>
   <option selected>Open this select menu</option>
   <option value="youtube">Youtube</option>
   <option value="instagram">Instagram</option>
@@ -28,12 +28,12 @@
 
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="email" name='email' aria-describedby="emailHelp">
+    <input type="email" class="form-control" id="email" name='email' aria-describedby="emailHelp" Required>
   </div>
 
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label"> Link to your Youtube/Instagram</label>
-    <input type="text" class="form-control" id="link" name='link' aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="link" name='link' aria-describedby="emailHelp" Required>
   </div>
 
   
@@ -41,7 +41,7 @@
 
    <div class="mb-3 my-3">
     <label for="exampleInputEmail1" class="form-label">Category</label>  
-  <select class="form-select" aria-label="Default select example" id='category' name= 'category'>
+  <select class="form-select" aria-label="Default select example" id='category' name= 'category' Required>
     <option selected>Open this select menu</option>
     <option value="Film_and_Animations">Film and Animations</option>
     <option value="Autos_&_Vehicles">Autos & Vehicles</option>
@@ -72,7 +72,7 @@
   </div>
 
   <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" Required>
     <label class="form-check-label" for="exampleCheck1">Accept Terms & Conditions</label>
   </div>
 
