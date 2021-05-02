@@ -3,6 +3,7 @@ from home.models import Contact, extendeduser
 from django.contrib import messages 
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth import authenticate, login, logout
 
 
 
@@ -51,7 +52,7 @@ def HandleUserSignUp(request):
                 messages.error(request, 'The Username you entered is already taken')
                 return render(request, 'home/signup.html')
             except User.DoesNotExist:
-                user= User.objects.create_user(username= request.POST['username'], password= request.POST['pass1'])
+                user= User.objects.create_user(username= request.POST['username'], password= request.POST['pass1'], email= request.POST['email'])
 
                 # Now to fill the data of extended feild
                 username= request.POST['username']
@@ -64,9 +65,10 @@ def HandleUserSignUp(request):
                 newextendeduser= extendeduser( username= username ,channel_name= chnl_name, channel_type= id_typ, link= link, category= category, user=user)
                 newextendeduser.save()
                 
+                context= {'newextendeduser': newextendeduser}
                 auth.login(request,user)
                 messages.success(request, 'Account Successfully Created')
-                return render(request, 'home/userdetails.html')
+                return render(request, 'home/userdetails.html', context)
 
         else:
             messages.error(request, 'Both the Passwords you entered does not match')
@@ -75,9 +77,20 @@ def HandleUserSignUp(request):
         return render(request, 'register.html')
 
 def userdetails(request):
-    if method=='POST':
-        pass
-    else:
-        pass
+    if request.method == 'POST':
+        user= request.user  
+
+        firstname= request.POST['firstname']
+        lastname= request.POST['lastname']
+        phone_no= request.POST['phn_no']
+        desc= request.POST['desc']
+        tags= request.POST['tags']
+        image= request.POST['image']
+
+        User.objects.update(first_name=firstname, last_name=lastname)
+        extendeduser.objects.update(phnno=phone_no, desc=desc, tags=tags)
+
+        return redirect('/')
+        
 
     

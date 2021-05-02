@@ -11,9 +11,7 @@
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
   <title> {% block title %} {% endblock title %} </title>
-  <style>
-  {% block css %} {% endblock css %}
- </style>
+  {% block css %}{% endblock css %}
 </head>
 
 <body>
@@ -67,11 +65,34 @@
         </form>
       </div>
     </div>
-      <!-- Button trigger modal -->
+
+
+
+    {% if user.is_authenticated %}
+    <ul class='navbar-nav mr-2'>
+<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{request.user}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </li>
+        </ul>
+
+{% else %}
+  <!-- Button to  trigger Login modal -->
+<!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Login
 </button>
-    <a class="btn btn-primary mx-2" href="/signup" role="button">SignUp</a>
+
+<button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#signupModal">
+SignUp
+</button>
+{% endif %}
+      
+    
   </nav>
 
 
