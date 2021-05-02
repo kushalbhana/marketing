@@ -85,12 +85,36 @@ def userdetails(request):
         phone_no= request.POST['phn_no']
         desc= request.POST['desc']
         tags= request.POST['tags']
+        gender= request.POST['gender']
         image= request.POST['image']
 
         User.objects.update(first_name=firstname, last_name=lastname)
-        extendeduser.objects.update(phnno=phone_no, desc=desc, tags=tags)
+        extendeduser.objects.update(phnno=phone_no, desc=desc, tags=tags, gender= gender)
 
         return redirect('/')
+
+def handleLogin(request):
+        if request.method=="POST":
+            # Get the post parameters
+            loginusername=request.POST['username']
+            loginpassword=request.POST['password']
+            user= authenticate(username= loginusername, password= loginpassword)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'Successfully logged In')
+                return redirect('/')
+
+            else:
+                messages.error(request, 'Invalid Username or Password, Please try again')
+                return redirect('/')
+        return HttpResponse("404 - Not found")
+
+
+def handleLogout(request):
+    logout(request)
+    messages.success(request, 'Successfully Logged Out')
+    return redirect(home)
         
 
     

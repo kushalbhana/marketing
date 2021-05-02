@@ -69,27 +69,24 @@
 
 
     {% if user.is_authenticated %}
-    <ul class='navbar-nav mr-2'>
-<li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{request.user}}
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Logout</a></li>
-          </ul>
-        </li>
-        </ul>
+ <div class="btn-group">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+    {{request.user}}
+  </button>
+  <ul class="dropdown-menu dropdown-menu-lg-end">
+    <li><button class="dropdown-item" type="button">Profile</button></li>
+    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+  </ul>
+</div>
 
 {% else %}
   <!-- Button to  trigger Login modal -->
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Login
 </button>
 
-<button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#signupModal">
-SignUp
-</button>
+<a class="btn btn-primary mx-1" href="signup" role="button">Signup</a>
 {% endif %}
       
     
@@ -107,15 +104,15 @@ SignUp
       </div>
       <div class="modal-body">
     
-<form>
+<form action='login', method='post'>{% csrf_token %}
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <label for="exampleInputEmail1" class="form-label">Username</label>
+    <input type="text" class="form-control" id="username" name='username' aria-describedby="emailHelp">
     
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
+    <input type="password" class="form-control" id="password" name='password'>
   </div>
   <div class='text-right'>
   <button type="submit" class="btn btn-primary">Submit</button>
