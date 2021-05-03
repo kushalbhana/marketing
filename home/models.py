@@ -24,7 +24,7 @@ class extendeduser(models.Model):
     gender= models.CharField(max_length=8)
     desc= models.TextField(max_length=500, default='')
     tags=models.CharField(max_length=50, default='')
-    channel_logo= models.ImageField(default=None)
+    channel_logo= models.ImageField(upload_to='user/channel_logo' ,default=None)
     user= models.OneToOneField(User, on_delete= models.CASCADE)
     
 

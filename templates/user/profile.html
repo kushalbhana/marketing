@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{request.user}}-Profile{% endblock title %}
+{% block css %}
+<style>
+h2{
+	display: inline-block;
+}
+</style>
+{% endblock css %}
+{% block body %}
+<div class=profile-first>
+<img src="https://source.unsplash.com/user/erondu/300x300" class="img-thumbnail my-5 mx-5" alt="...">
+{{profile.channel_name}}
+<h2> {{request.user}}  </h2>
+ </div>
+{% endblock body %}

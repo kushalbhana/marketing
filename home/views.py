@@ -89,7 +89,7 @@ def userdetails(request):
         image= request.POST['image']
 
         User.objects.update(first_name=firstname, last_name=lastname)
-        extendeduser.objects.update(phnno=phone_no, desc=desc, tags=tags, gender= gender)
+        extendeduser.objects.update(phnno=phone_no, desc=desc, tags=tags, gender= gender, channel_logo= image)
 
         return redirect('/')
 
