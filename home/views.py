@@ -76,22 +76,6 @@ def HandleUserSignUp(request):
     else:
         return render(request, 'register.html')
 
-def userdetails(request):
-    if request.method == 'POST':
-        user= request.user  
-
-        firstname= request.POST['firstname']
-        lastname= request.POST['lastname']
-        phone_no= request.POST['phn_no']
-        desc= request.POST['desc']
-        tags= request.POST['tags']
-        gender= request.POST['gender']
-        image= request.POST['image']
-
-        User.objects.update(first_name=firstname, last_name=lastname)
-        extendeduser.objects.update(phnno=phone_no, desc=desc, tags=tags, gender= gender, channel_logo= image)
-
-        return redirect('/')
 
 def handleLogin(request):
         if request.method=="POST":
