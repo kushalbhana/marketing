@@ -2,15 +2,163 @@
 {% block title %}{{request.user}}-Profile{% endblock title %}
 {% block css %}
 <style>
-h2{
-	display: inline-block;
-}
+	.channel_name_heading {
+		margin-top: 50px;
+		
+
+	}
+
+	.username-heading {
+		color: grey;
+		margin-top: -15px;
+	}
+
+	.total-subs-heading {
+		margin-top: 50px;
+		margin-left: 50px;
+	}
+
+	.col-2{
+		margin-left: 30px;
+	}
+
+	.col-3{
+		margin-top: 50px;
+	}
+
+	.total-views-heading{
+		margin-top: 50px;
+		margin-left: 50px;
+	}
+
+	.avg-views-heading{
+		margin-top: 50px;
+	}
+
+	.total-views{
+		margin-left: 50px;
+		color: Blue;
+	}
+
+	.total-videos{
+		color: red;
+		padding-left: 50px;
+		color: green;
+	}
+
+	.total-subs{
+		padding-left: 120px;
+		color: red;
+	}
+
+	#message-btn{
+		margin-top: 20px;
+	}
+
+	#addtolist-btn{
+		margin-top: 20px;
+	}
+
+	.last-ten-videos{
+		margin-top: -10px;
+	}
+
+
 </style>
 {% endblock css %}
 {% block body %}
-<div class=profile-first>
-<img src="https://source.unsplash.com/user/erondu/300x300" class="img-thumbnail my-5 mx-5" alt="...">
-{{profile.channel_name}}
-<h2> {{request.user}}  </h2>
- </div>
+
+<!--For top row-->
+<div class="row align-items-start">
+	<div class="col-2">
+		<img src="https://source.unsplash.com/user/erondu/300x300" class="img-thumbnail my-5 mx-5" alt="...">
+	</div>
+
+	<div class="col-2">
+		<h1 class='channel_name_heading'>{{extendeduser_profile.channel_name}} </h1>
+		<h3 class='username-heading'> @{{userdetails_profile.firstname}} </h3>
+		<button type="button" class="btn btn-primary" id='message-btn'>Message</button>
+		<button type="button" class="btn btn-primary" id='addtolist-btn'>Add to list</button>
+	</div>
+
+	<div class="col-3">
+		<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Sno.</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Channel Name</td>
+      <td>{{extendeduser_profile.channel_name}}</td>
+      
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Owner Name</td>
+      <td>{{userdetails_profile.firstname }} {{userdetails_profile.lastname}}</td>
+      
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Category</td>
+	  <td>{{extendeduser_profile.category}}</td>
+      
+    </tr>
+
+	<tr>
+      <th scope="row">4</th>
+      <td>Email </td>
+	  <td>{{user_profile.email}}</td>
+      
+    </tr>
+
+	<tr>
+      <th scope="row">5</th>
+      <td>Link </td>
+	  <td></td>
+      
+    </tr>
+  </tbody>
+</table>
+	</div>
+
+	<div class="col">
+		One More column
+	</div>
+	<div class="col">
+		One More column
+	</div>
+
+
+
+
+</div>
+
+
+<!--For Bottom row-->
+<div class="row align-items-start">
+	<div class="col">
+		<h2 class='total-views-heading'>Total views</h2>
+		<h2 class='total-views'>{{channel_stats.total_views}}<h2>
+	</div>
+
+	<div class="col">
+		<h2 class='avg-views-heading'>Total Videos</h2>
+		<h2 class='total-videos'>{{channel_stats.total_videos}}<h2>
+	</div>
+	<div class="col">
+		<h2 class='total-subs-heading'>Total Subscribers</h2>
+		<h2 class='total-subs'>{{channel_stats.total_subs}}<h2>
+	</div>
+	<div class="col">
+		<h2 class='avg-views-heading'>Average views </h2>
+		<h6 class='last-ten-videos'>(Last 10 videos)</h6>
+	</div>
+</div>
 {% endblock body %}

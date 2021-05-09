@@ -87,7 +87,7 @@ def handleLogin(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Successfully logged In')
-                return redirect('/')
+                return redirect('/user/profile')
 
             else:
                 messages.error(request, 'Invalid Username or Password, Please try again')
