@@ -17,9 +17,17 @@ def UserProfile(request):
     extendeduser_profile= extendeduser.objects.get(user=x)
     channel_stats= Channel_statistics.objects.get(user=x)
     userprofile= User.objects.get(username=x)
+    six_videos= stats_main.get_all_videos(x)
+    first_video={}
+    first_video['title']= six_videos[0][0]['title']
+    first_video['publishedAt']= six_videos[0][0]['publishedAt']
+    first_video['thumbnail']= six_videos[0][0]['thumbnails']['default']['url']
+    first_video['stats']= six_videos[0][1]
+    print(first_video)
+    
 
 
-    params= {'userdetails_profile':userdetailsprofile,'extendeduser_profile': extendeduser_profile, 'channel_stats': channel_stats, 'user_profile':userprofile }
+    params= {'userdetails_profile':userdetailsprofile,'extendeduser_profile': extendeduser_profile, 'channel_stats': channel_stats, 'user_profile':userprofile, 'first_video': first_video }
     return render(request, 'user/profile.html', params)
 
 

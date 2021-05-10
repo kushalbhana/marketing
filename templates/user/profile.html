@@ -63,6 +63,21 @@
 		margin-top: -10px;
 	}
 
+	.latest-heading{
+		padding-left: 50px;
+		padding-top: 50px;
+	}
+
+	.first-video-title{
+		padding-top: 100px;
+		margin-left: -50px;
+	}
+
+	.first-video-thumbnail{
+		padding-left: 50px; 
+		height: 150px;
+		width:  300px;
+	}
 
 </style>
 {% endblock css %}
@@ -129,10 +144,19 @@
 	</div>
 
 	<div class="col">
-		One More column
+		<h1 class= 'latest-heading'> Latest Video </h1>
+		<img src="{{first_video.thumbnail}}" class="first-video-thumbnail">
+		
+		
 	</div>
 	<div class="col">
-		One More column
+		<p class= 'first-video-title'><b> {{first_video.title}} </b></p>
+		<p class='first-video-stats'>{{first_video.stats.viewCount}} 
+		 {{first_video.stats.likeCount}} 
+		{{ first_video.stats.dislikeCount}}  
+		{{first_video.stats.commentCount}}
+		<p>
+		
 	</div>
 
 
@@ -161,4 +185,8 @@
 		<h6 class='last-ten-videos'>(Last 10 videos)</h6>
 	</div>
 </div>
+
+
+
+
 {% endblock body %}

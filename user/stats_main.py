@@ -14,9 +14,10 @@ def channel_stats(user):
     link = userx.link
     if 'https://www.youtube.com/channel/' in link:
         link= link.replace('https://www.youtube.com/channel/', '')
-        print(link)
 
-        API_KEY= 'AIzaSyB9h8mAYG-DHmExLfu7AFMjS9P0ApBCBlY'
+
+        
+        API_KEY= 'AIzaSyB6e5pwwASwm-v6U9YdZkpdVtK1UQNKkKE'
         channel_id= link
         yt= YTstats(API_KEY, channel_id)
         data= yt.get_channel_statistics()
@@ -26,3 +27,17 @@ def channel_stats(user):
 
         total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user)
         total_channnel_stats.save()
+
+def get_all_videos(user):
+    userx= extendeduser.objects.get(user=user)
+    link = userx.link
+    if 'https://www.youtube.com/channel/' in link:
+        link= link.replace('https://www.youtube.com/channel/', '')
+
+
+        API_KEY= 'AIzaSyB6e5pwwASwm-v6U9YdZkpdVtK1UQNKkKE'
+
+        channel_id= link
+        yt= YTstats(API_KEY, channel_id)
+        six_videos= yt.get_channel_video_data()
+        return six_videos
