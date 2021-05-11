@@ -56,13 +56,12 @@ def HandleUserSignUp(request):
 
                 # Now to fill the data of extended feild
                 username= request.POST['username']
-                chnl_name= request.POST['chanel_name']
                 id_typ= request.POST['id_type']
                 email= request.POST['email']
                 link= request.POST['link']
                 category= request.POST['category']
 
-                newextendeduser= extendeduser( username= username ,channel_name= chnl_name, channel_type= id_typ, link= link, category= category, user=user)
+                newextendeduser= extendeduser( username= username, channel_type= id_typ, link= link, category= category, user=user)
                 newextendeduser.save()
                 
                 context= {'newextendeduser': newextendeduser}

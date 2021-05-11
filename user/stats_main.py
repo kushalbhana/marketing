@@ -11,7 +11,7 @@ import json
 
 # To add statistics of channel and videos
 
-def channel_stats(user):
+def channel_stats(user, language):
     userx= extendeduser.objects.get(user=user)
     link = userx.link
     if 'https://www.youtube.com/channel/' in link:
@@ -24,18 +24,19 @@ def channel_stats(user):
         yt= YTstats(API_KEY, channel_id)
         data= yt.get_channel_statistics()
         
+        
         ttl_views= data[1]['viewCount']
-        print(ttl_views)
         ttl_subs= data[1]['subscriberCount']
-        print(ttl_subs)
         videoCount= data[1]['videoCount']
-        print(videoCount)
-
+        
         channel_desc= data[0]['description']
-        channel_logo= data[0]['thumbnails']['default']['url']
+        channel_name= data[0]['title']
+        country= data[0]['country']
+        channel_logo= data[0]['thumbnails']['medium']['url']
+        content_language= language
 
 
-        total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user, desc= channel_desc, logo=channel_logo)
+        total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user, desc= channel_desc, logo=channel_logo, country=country, language=content_language, channel_name=channel_name)
         total_channnel_stats.save()
 
 def get_all_videos(user):

@@ -42,6 +42,8 @@ def Userdetails(request):
         phone_no= request.POST['phn_no']
         tags= request.POST['tags']
         gender= request.POST['gender']
+        language= request.POST['language']
+        
         
 
         newuserdetails= UserDetails(phnno=phone_no, tags=tags, gender= gender, firstname=firstname, lastname=lastname, user=user, username=user)
@@ -49,7 +51,7 @@ def Userdetails(request):
 
 
         # To save fetch stats of channel and add them ti database
-        stats_main.channel_stats(user)
+        stats_main.channel_stats(user, language)
         
 
 

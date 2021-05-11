@@ -22,8 +22,10 @@ class UserDetails(models.Model):
 # For statistics of the channel
 class Channel_statistics(models.Model):
     username= models.CharField(max_length=20, primary_key=True)
+    channel_name= models.CharField(max_length=50)
     desc= models.TextField(max_length=500, default='')
     country= models.CharField(max_length=50, default='')
+    language= models.CharField(max_length=20, default='')
     total_views= models.CharField(max_length=50)
     total_subs= models.CharField(max_length=50)
     avg_views= models.CharField(max_length=50, default='')

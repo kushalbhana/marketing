@@ -16,7 +16,6 @@ class Contact(models.Model):
 class extendeduser(models.Model):
     id=models.AutoField(primary_key=True)
     username= models.CharField(max_length=50)
-    channel_name= models.CharField(max_length=50)
     channel_type= models.CharField(max_length=50)
     link= models.TextField(max_length=100)
     category= models.CharField(max_length=50)
