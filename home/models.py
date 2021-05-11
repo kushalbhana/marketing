@@ -20,7 +20,6 @@ class extendeduser(models.Model):
     channel_type= models.CharField(max_length=50)
     link= models.TextField(max_length=100)
     category= models.CharField(max_length=50)
-    channel_logo= models.ImageField(upload_to='user/channel_logo' ,default=None)
     user= models.ForeignKey(User, on_delete= models.CASCADE)
     
 

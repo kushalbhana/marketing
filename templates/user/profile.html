@@ -4,7 +4,7 @@
 <style>
 	.channel_name_heading {
 		margin-top: 50px;
-		
+
 
 	}
 
@@ -18,67 +18,77 @@
 		margin-left: 50px;
 	}
 
-	.col-2{
+	.col-2 {
 		margin-left: 30px;
 	}
 
-	.col-3{
+	.col-3 {
 		margin-top: 50px;
 	}
 
-	.total-views-heading{
+	.total-views-heading {
 		margin-top: 50px;
 		margin-left: 50px;
 	}
 
-	.avg-views-heading{
+	.avg-views-heading {
 		margin-top: 50px;
 	}
 
-	.total-views{
+	.total-views {
 		margin-left: 50px;
 		color: Blue;
 	}
 
-	.total-videos{
+	.total-videos {
 		color: red;
 		padding-left: 50px;
 		color: green;
 	}
 
-	.total-subs{
+	.total-subs {
 		padding-left: 120px;
 		color: red;
 	}
 
-	#message-btn{
+	#message-btn {
 		margin-top: 20px;
 	}
 
-	#addtolist-btn{
+	#addtolist-btn {
 		margin-top: 20px;
 	}
 
-	.last-ten-videos{
+	.last-ten-videos {
 		margin-top: -10px;
 	}
 
-	.latest-heading{
+	.latest-heading {
 		padding-left: 50px;
 		padding-top: 50px;
 	}
 
-	.first-video-title{
+	.first-video-title {
 		padding-top: 100px;
 		margin-left: -50px;
 	}
 
-	.first-video-thumbnail{
-		padding-left: 50px; 
+	.first-video-thumbnail {
+		padding-left: 50px;
 		height: 150px;
-		width:  300px;
+		width: 300px;
 	}
 
+	.first-video-stats {
+		margin-top: -20px;
+		margin-left: -50px;
+	}
+
+	#channel-logo {
+		height: 250px;
+		width: 250px;
+
+	}
 </style>
 {% endblock css %}
 {% block body %}
@@ -86,77 +96,80 @@
 <!--For top row-->
 <div class="row align-items-start">
 	<div class="col-2">
-		<img src="https://source.unsplash.com/user/erondu/300x300" class="img-thumbnail my-5 mx-5" alt="...">
+		<img src="{{channel_stats.logo}}" class="img-thumbnail my-5 mx-5" alt="..." id='channel-logo'>
 	</div>
 
 	<div class="col-2">
 		<h1 class='channel_name_heading'>{{extendeduser_profile.channel_name}} </h1>
-		<h3 class='username-heading'> @{{userdetails_profile.firstname}} </h3>
+		<h3 class='username-heading'> @{{userdetails_profile.username}} </h3>
 		<button type="button" class="btn btn-primary" id='message-btn'>Message</button>
 		<button type="button" class="btn btn-primary" id='addtolist-btn'>Add to list</button>
 	</div>
 
 	<div class="col-3">
 		<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Sno.</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Channel Name</td>
-      <td>{{extendeduser_profile.channel_name}}</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Owner Name</td>
-      <td>{{userdetails_profile.firstname }} {{userdetails_profile.lastname}}</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Category</td>
-	  <td>{{extendeduser_profile.category}}</td>
-      
-    </tr>
+			<thead>
+				<tr>
+					<th scope="col">Sno.</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
 
-	<tr>
-      <th scope="row">4</th>
-      <td>Email </td>
-	  <td>{{user_profile.email}}</td>
-      
-    </tr>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Channel Name</td>
+					<td>{{extendeduser_profile.channel_name}}</td>
 
-	<tr>
-      <th scope="row">5</th>
-      <td>Link </td>
-	  <td></td>
-      
-    </tr>
-  </tbody>
-</table>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Owner Name</td>
+					<td>{{userdetails_profile.firstname }} {{userdetails_profile.lastname}}</td>
+
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Category</td>
+					<td>{{extendeduser_profile.category}}</td>
+
+				</tr>
+
+				<tr>
+					<th scope="row">4</th>
+					<td>Email </td>
+					<td>{{user_profile.email}}</td>
+
+				</tr>
+
+				<tr>
+					<th scope="row">5</th>
+					<td>Link </td>
+					<td></td>
+
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
+
+
 	<div class="col">
-		<h1 class= 'latest-heading'> Latest Video </h1>
+		<h1 class='latest-heading'> Latest Video </h1>
 		<img src="{{first_video.thumbnail}}" class="first-video-thumbnail">
-		
-		
+
+
 	</div>
 	<div class="col">
-		<p class= 'first-video-title'><b> {{first_video.title}} </b></p>
-		<p class='first-video-stats'>{{first_video.stats.viewCount}} 
-		 {{first_video.stats.likeCount}} 
-		{{ first_video.stats.dislikeCount}}  
-		{{first_video.stats.commentCount}}
+		<p class='first-video-title'><b> {{first_video.title}} </b></p>
+		<p class='first-video-stats' style="font-size:20px">
+			&#128202; {{first_video.stats.viewCount}} <br>
+			&#128077; {{first_video.stats.likeCount}} <br>
+			&#128078; {{ first_video.stats.dislikeCount}} <br>
+			&#128488;{{first_video.stats.commentCount}}
 		<p>
-		
+
 	</div>
 
 
@@ -166,6 +179,8 @@
 
 
 <!--For Bottom row-->
+
+
 <div class="row align-items-start">
 	<div class="col">
 		<h2 class='total-views-heading'>Total views</h2>

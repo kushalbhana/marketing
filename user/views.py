@@ -23,11 +23,12 @@ def UserProfile(request):
     first_video['publishedAt']= six_videos[0][0]['publishedAt']
     first_video['thumbnail']= six_videos[0][0]['thumbnails']['default']['url']
     first_video['stats']= six_videos[0][1]
-    print(first_video)
+
+    
     
 
 
-    params= {'userdetails_profile':userdetailsprofile,'extendeduser_profile': extendeduser_profile, 'channel_stats': channel_stats, 'user_profile':userprofile, 'first_video': first_video }
+    params= {'userdetails_profile':userdetailsprofile,'extendeduser_profile': extendeduser_profile, 'channel_stats': channel_stats, 'user_profile':userprofile, 'first_video': first_video}
     return render(request, 'user/profile.html', params)
 
 
@@ -39,22 +40,21 @@ def Userdetails(request):
         firstname= request.POST['firstname']
         lastname= request.POST['lastname']
         phone_no= request.POST['phn_no']
-        desc= request.POST['desc']
         tags= request.POST['tags']
         gender= request.POST['gender']
-        image= request.POST['image']
         
 
-        newuserdetails= UserDetails(phnno=phone_no, desc=desc, tags=tags, gender= gender, firstname=firstname, lastname=lastname, user=user, username=user)
+        newuserdetails= UserDetails(phnno=phone_no, tags=tags, gender= gender, firstname=firstname, lastname=lastname, user=user, username=user)
         newuserdetails.save()
 
 
         # To save fetch stats of channel and add them ti database
         stats_main.channel_stats(user)
+        
 
 
 
 
 
-        return redirect('/user/profile')
+        return redirect('/')
 

@@ -12,15 +12,18 @@ class YTstats:
     # For youtube channel statistics
     def get_channel_statistics(self):
         """Extract the channel statistics"""
-        url = f'https://www.googleapis.com/youtube/v3/channels?part=statistics&id={self.channel_id}&key={self.api_key}'
+        url = f'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id={self.channel_id}&key={self.api_key}'
        
         json_url = requests.get(url)
         data = json.loads(json_url.text)
-        try:
-            data = data['items'][0]['statistics']
-        except KeyError:
-            data= None   
-        return data
+        complete_channel_data=[]
+        channel_data= data['items'][0]['snippet']
+        
+        complete_channel_data.append(channel_data)
+        stats_data = data['items'][0]['statistics']
+        complete_channel_data.append(stats_data)
+         
+        return complete_channel_data
 
 
     # For geting ids of all the videos available on the channel
