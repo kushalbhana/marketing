@@ -11,7 +11,7 @@ import json
 
 # To add statistics of channel and videos
 
-def channel_stats(user, language):
+def channel_stats(user, language, state):
     userx= extendeduser.objects.get(user=user)
     link = userx.link
     if 'https://www.youtube.com/channel/' in link:
@@ -19,7 +19,7 @@ def channel_stats(user, language):
 
 
         
-        API_KEY= 'AIzaSyB6e5pwwASwm-v6U9YdZkpdVtK1UQNKkKE'
+        API_KEY= 'AIzaSyB9h8mAYG-DHmExLfu7AFMjS9P0ApBCBlY'
         channel_id= link
         yt= YTstats(API_KEY, channel_id)
         data= yt.get_channel_statistics()
@@ -36,7 +36,7 @@ def channel_stats(user, language):
         content_language= language
 
 
-        total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user, desc= channel_desc, logo=channel_logo, country=country, language=content_language, channel_name=channel_name)
+        total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user, desc= channel_desc, logo=channel_logo, country=country, language=content_language, channel_name=channel_name, state= state)
         total_channnel_stats.save()
 
 def get_all_videos(user):
@@ -46,24 +46,14 @@ def get_all_videos(user):
         link= link.replace('https://www.youtube.com/channel/', '')
 
 
-        API_KEY= 'AIzaSyB6e5pwwASwm-v6U9YdZkpdVtK1UQNKkKE'
+        API_KEY= 'AIzaSyB9h8mAYG-DHmExLfu7AFMjS9P0ApBCBlY'
 
         channel_id= link
         yt= YTstats(API_KEY, channel_id)
         six_videos= yt.get_channel_video_data()
         return six_videos
 
-def youtube_thumbnail(user):
-    userx= extendeduser.objects.get(user=user)
-    link = userx.link
-    if 'https://www.youtube.com/channel/' in link:
-        link= link.replace('https://www.youtube.com/channel/', '')
-        API_KEY= 'AIzaSyB6e5pwwASwm-v6U9YdZkpdVtK1UQNKkKE'
-        url= f'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id={link}&key={API_KEY}'
-        json_url= requests.get(url)
-        data= json.loads(json_url.text)
-        logo_data= data['items'][0]['snippet']['thumbnails']['default']['url']
-        return logo_data
+
         
 
     

@@ -25,6 +25,7 @@ class Channel_statistics(models.Model):
     channel_name= models.CharField(max_length=50)
     desc= models.TextField(max_length=500, default='')
     country= models.CharField(max_length=50, default='')
+    state= models.CharField(max_length=50)
     language= models.CharField(max_length=20, default='')
     total_views= models.CharField(max_length=50)
     total_subs= models.CharField(max_length=50)

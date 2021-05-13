@@ -53,11 +53,6 @@ class YTstats:
             temp_list.append(stats)
             list_of_data.append(temp_list)
             
-
-
-        
-            
-
         return list_of_data
        
         

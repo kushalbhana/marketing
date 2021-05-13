@@ -43,6 +43,7 @@ def Userdetails(request):
         tags= request.POST['tags']
         gender= request.POST['gender']
         language= request.POST['language']
+        state= request.POST['state']
         
         
 
@@ -51,7 +52,7 @@ def Userdetails(request):
 
 
         # To save fetch stats of channel and add them ti database
-        stats_main.channel_stats(user, language)
+        stats_main.channel_stats(user, language, state)
         
 
 
