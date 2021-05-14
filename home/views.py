@@ -1,3 +1,5 @@
+from user.models import GraphAnalitycs
+from django.db.models import query
 from django.shortcuts import render, HttpResponse, redirect
 from home.models import Contact, extendeduser
 from django.contrib import messages 
@@ -98,6 +100,16 @@ def handleLogout(request):
     logout(request)
     messages.success(request, 'Successfully Logged Out')
     return redirect(home)
+
+def search(request):
+    query= request.GET.get('search')
+    influencers= GraphAnalitycs.objects.values().order_by('-overall_marking')
+    
+    print(influencers)
+    
+    return render(request, 'home/search.html')
+    
+    
         
 
     

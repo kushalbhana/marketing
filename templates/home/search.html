@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Search Results{% endblock title %}
 {% block css %}
-
+<style>
 body{
     background:#DCDCDC;
-    margin-top:20px;
+}
+.row{
+    margin-top: -10px
 }
 .card-box {
     padding: 20px;
@@ -54,6 +56,11 @@ h4 {
     font-size: 18px;
 }
 
+.search-results{
+    padding-top: 20px;
+}
+</style>
+
 {% endblock css %}
 {% block body %}
 
@@ -61,7 +68,7 @@ h4 {
 <div class="content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4"><a href="#custom-modal" class="btn btn-custom waves-effect waves-light mb-4" data-animation="fadein" data-plugin="custommodal" data-overlayspeed="200" data-overlaycolor="#36404a"><i class="mdi mdi-plus"></i> Add Member</a></div>
+            <div class="col-sm-4"><a href="#custom-modal" class="btn btn-custom waves-effect waves-light mb-4" data-animation="fadein" data-plugin="custommodal" data-overlayspeed="200" data-overlaycolor="#36404a"><i class="mdi mdi-plus"></i> <h3 class='search-results'>Search Results:</h3></a></div>
             <!-- end col -->
         </div>
         <!-- end row -->
