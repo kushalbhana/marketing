@@ -40,14 +40,18 @@ class Channel_statistics(models.Model):
 
 
 # For statistics of the most popular video 
-class MostpoPularVideo(models.Model):
+class GraphAnalitycs(models.Model):
     username= models.CharField(max_length=20, primary_key=True)
-    title= models.CharField(max_length=100)
-    desc= models.TextField(max_length=10000)
-    total_views= models.CharField(max_length=50)
-    total_likes= models.CharField(max_length=50)
-    total_comment= models.CharField(max_length=50)
-    thumbnail= models.ImageField(default=None)
+    subsgoal= models.CharField(max_length=100)
+    subsgoal_current_position= models.CharField(max_length=50)
+    subsgoal_current_position_graph= models.CharField(max_length=50)
+    substoviewratio= models.TextField(max_length=10000)
+    substoviewratio_graph= models.TextField(max_length=10000)
+    views_to_like= models.CharField(max_length=50)
+    views_to_like_graph= models.CharField(max_length=50)
+    overall_rating= models.CharField(max_length=50)
+    total_comment= models.CharField(max_length=50, default= '')
+    overall_marking= models.CharField(max_length=50)
     user= models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):

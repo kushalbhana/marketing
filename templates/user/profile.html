@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block title %}{{request.user}}-Profile{% endblock title %}
 {% block css %}
@@ -74,6 +75,7 @@
 
   .pub-date {
     font-size: 12px;
+    padding-left: 20px;
 
   }
 
@@ -92,12 +94,32 @@
     padding-left: 50px;
   }
 
-  #channel-stats-body-2{
-    padding-left: 70px;
-  }
+  
 
   .ttl-videos{
     padding-left: 50px;
+  }
+
+  #channel-stats-body-totalview{
+    padding-left: 52px;
+  }
+
+  #channel-stats-body-averageview{
+    padding-left: 90px;
+
+  }
+
+  #channel-stats-body-totalsubs{
+    padding-left: 100px;
+
+  }
+
+  #channel-stats-body-totalvideos{
+    padding-left: 50px;
+
+  }
+  .first-video-title{
+    padding-left: 20px;
   }
   
 
@@ -105,6 +127,7 @@
 </style>
 {% endblock css %}
 {% block body %}
+{% load humanize %}
 
 <!--For top row-->
 <div class="container">
@@ -131,7 +154,7 @@
                 <h4>{{channel_stats.channel_name}}</h4>
                 <p class="text-secondary mb-1" id='category-below'>{{extendeduser_profile.category}}</p>
                 <p class="text-muted font-size-sm">{{channel_stats.state}}, {{channel_stats.country}}</p>
-                <button class="btn btn-primary">View Channel</button>
+                <button class="btn btn-primary" type='submit' >View Channel</button>
                 <button class="btn btn-outline-primary">All Videos</button>
               </div>
             </div>
@@ -253,7 +276,7 @@
                     <img src="{{first_video.thumbnail}}">
                   </div>
                   <div class="col-8">
-                    <h6> {{first_video.title}} </h6>
+                    <h6 class='first-video-title'> {{first_video.title}} </h6>
                     <p class="pub-date"> Publsihed At:
                       {{first_video.publishedAt}} </p>
                   </div>
@@ -261,7 +284,7 @@
 
                   <div class='first-video-stats'>
                     
-                    &#128202;{{first_video.stats.viewCount}} &nbsp; &nbsp; &#128077;{{first_video.stats.likeCount}}  &nbsp; &nbsp; &#128078;{{first_video.stats.dislikeCount}} &nbsp; &#x1F5E8;{{first_video.stats.commentCount}}
+                    &#128202;{{first_video.stats.viewCount}} &nbsp; &nbsp; &nbsp; &#128077;{{first_video.stats.likeCount}}  &nbsp; &nbsp; &nbsp; &#128078;{{first_video.stats.dislikeCount}} &nbsp; &nbsp; &nbsp; &#x1F5E8;{{first_video.stats.commentCount}}
                   </div>
                 </div>
 
@@ -276,25 +299,25 @@
             <div class="card h-100">
               <div class="card-body">
                 <h6 class="d-flex align-items-center mb-3"><i
-                    class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                <small>Web Design</small>
+                    class="material-icons text-info mr-2">Analytics</i>Graphical</h6>
+                <small>Overall Rating</small>
                 <div class="progress mb-3" style="height: 5px">
-                  <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80"
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: {{analysis.overall_rating}}%" aria-valuenow="{{analysis.overall_rating}}"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <small>Website Markup</small>
+                <small>Views To Subscriber Ratio</small>
                 <div class="progress mb-3" style="height: 5px">
-                  <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72"
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: {{analysis.substoviewratio_graph}}%" aria-valuenow="{{analysis.substoviewratio_graph}}"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <small>One Page</small>
+                <small>Subscriber Goal ({{analysis.subsgoal|intword}})</small>
                 <div class="progress mb-3" style="height: 5px">
-                  <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89"
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: {{analysis.subsgoal_current_position}}%" aria-valuenow="{{analysis.subsgoal_current_position}}"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <small>Mobile Template</small>
+                <small>Views vs Like </small>
                 <div class="progress mb-3" style="height: 5px">
-                  <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55"
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: {{analysis.views_to_like_graph}}%" aria-valuenow="{{analysis.views_to_like_graph}}"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <small>Backend API</small>
@@ -316,19 +339,19 @@
         <div class="row align-items-center">
           <div class="col">
            <h4 id='channel-stats-body'> Total Views</h4>
-          <font color='Blue'> <h5 id='channel-stats-body-2'>{{channel_stats.total_views}} </font></h5>
+          <font color='Blue'> <b><h5 id='channel-stats-body-totalview'>{{channel_stats.total_views|intword}}</b> </font></h5>
           </div>
           <div class="col">
             <h4 id='channel-stats-body'> Average Views </h4>
-            
+           <h5 id='channel-stats-body-averageview'><b><font class='Average-views' color= 'green'> {{channel_stats.avg_views | intword}} </font></b> </h5>
           </div>
           <div class="col">
             <h4 id='channel-stats-body'> Total Subscribers</h4>
-            <h5 id='channel-stats-body-2'><font color='red'>{{channel_stats.total_subs}} </font></h5>
+            <h5 id='channel-stats-body-totalsubs'><b><font color='red'>{{channel_stats.total_subs|intword}} </font></b></h5>
           </div>
           <div class="col">
             <h4 id='channel-stats-body'> Total Videos </h4>
-            <h5 id='channel-stats-body-2'> <font color='blue' class="ttl-videos">{{channel_stats.total_videos}} </font></h5>
+            <h5 id='channel-stats-body-totalvideos'><b><font color='blue' class="ttl-videos">{{channel_stats.total_videos|intword}} </font></b></h5>
           </div>
         </div>
 

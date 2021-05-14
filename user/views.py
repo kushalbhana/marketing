@@ -1,8 +1,10 @@
+from django.http import request
 from django.shortcuts import render, HttpResponse, redirect
 from home.models import extendeduser
 from django.contrib.auth.models import User
 from user import stats_main
-from user.models import UserDetails, Channel_statistics, MostpoPularVideo
+import user
+from user.models import UserDetails, Channel_statistics, GraphAnalitycs
 
 
 
@@ -16,6 +18,7 @@ def UserProfile(request):
     userdetailsprofile= UserDetails.objects.get(user=x)
     extendeduser_profile= extendeduser.objects.get(user=x)
     channel_stats= Channel_statistics.objects.get(user=x)
+    analysis= GraphAnalitycs.objects.get(user=x)
     userprofile= User.objects.get(username=x)
     six_videos= stats_main.get_all_videos(x)
     first_video={}
@@ -24,11 +27,9 @@ def UserProfile(request):
     first_video['thumbnail']= six_videos[0][0]['thumbnails']['default']['url']
     first_video['stats']= six_videos[0][1]
 
-    
-    
+        
 
-
-    params= {'userdetails_profile':userdetailsprofile,'extendeduser_profile': extendeduser_profile, 'channel_stats': channel_stats, 'user_profile':userprofile, 'first_video': first_video}
+    params= {'userdetails_profile':userdetailsprofile,'extendeduser_profile': extendeduser_profile, 'channel_stats': channel_stats, 'user_profile':userprofile, 'first_video': first_video, 'analysis': analysis}
     return render(request, 'user/profile.html', params)
 
 
@@ -45,19 +46,11 @@ def Userdetails(request):
         language= request.POST['language']
         state= request.POST['state']
         
-        
-
         newuserdetails= UserDetails(phnno=phone_no, tags=tags, gender= gender, firstname=firstname, lastname=lastname, user=user, username=user)
         newuserdetails.save()
 
-
         # To save fetch stats of channel and add them ti database
         stats_main.channel_stats(user, language, state)
-        
-
-
-
-
 
         return redirect('/')
 
