@@ -1,4 +1,4 @@
-from user.models import GraphAnalitycs
+from user.models import Channel_statistics, GraphAnalitycs
 from django.db.models import query
 from django.shortcuts import render, HttpResponse, redirect
 from home.models import Contact, extendeduser
@@ -103,11 +103,10 @@ def handleLogout(request):
 
 def search(request):
     query= request.GET.get('search')
-    influencers= GraphAnalitycs.objects.values().order_by('-overall_marking')
+    influencers= Channel_statistics.objects.values().order_by('-overall_marking')
+    influ_list= {'influencers': influencers}
     
-    print(influencers)
-    
-    return render(request, 'home/search.html')
+    return render(request, 'home/search.html', influ_list)
     
     
         

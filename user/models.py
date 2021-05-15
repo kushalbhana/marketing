@@ -23,7 +23,7 @@ class UserDetails(models.Model):
 class Channel_statistics(models.Model):
     username= models.CharField(max_length=20, primary_key=True)
     channel_name= models.CharField(max_length=50)
-    desc= models.TextField(max_length=500, default='')
+    desc= models.TextField(max_length=9000, default='')
     country= models.CharField(max_length=50, default='')
     state= models.CharField(max_length=50)
     language= models.CharField(max_length=20, default='')
@@ -31,6 +31,7 @@ class Channel_statistics(models.Model):
     total_subs= models.CharField(max_length=50)
     avg_views= models.CharField(max_length=50, default='')
     total_videos= models.CharField(max_length=50)
+    overall_marking= models.CharField(max_length=1000)
     logo= models.CharField(max_length=100, default='')
     user= models.ForeignKey(User, on_delete= models.CASCADE)
 

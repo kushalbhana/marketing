@@ -128,8 +128,6 @@ def channel_stats(user, language, state):
                 eight_video= int(i[1]['viewCount'])
         
         total_avg_views= (fourth_video + fifth_video + sixth_video + seventh_video + eight_video)// (init_video-3)
-        total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user, desc= channel_desc, logo=channel_logo, country=country, language=content_language, channel_name=channel_name, state= state, avg_views= total_avg_views)
-        total_channnel_stats.save()
 
 
         initialfs= 1
@@ -198,6 +196,11 @@ def channel_stats(user, language, state):
         total_avg_views_analytics= total_views_analitics(total_avg_views)
         overall_marking= total_avg_views_analytics + like_ratio + subs_to_views_ratio
         overall_rating= (overall_marking/70)*100
+        total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user, desc= channel_desc, logo=channel_logo, country=country, language=content_language, channel_name=channel_name, state= state, avg_views= total_avg_views, overall_marking=overall_marking)
+        total_channnel_stats.save()
+
+
+       
 
         
         total_analytics= GraphAnalitycs(username= user, user= user, subsgoal=subgoal, subsgoal_current_position= sub_current_posi, substoviewratio= subs_to_views_ratio, views_to_like= like_ratio, overall_rating= overall_rating, overall_marking= overall_marking, subsgoal_current_position_graph= subs_curren_posi_graph, substoviewratio_graph= substoviewratio_graph, views_to_like_graph=views_to_like_graph)
