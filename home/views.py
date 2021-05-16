@@ -102,9 +102,22 @@ def handleLogout(request):
     return redirect(home)
 
 def search(request):
-    query= request.GET.get('search')
+    my_query= request.GET.get('search')
+    query= my_query.lower()
     influencers= Channel_statistics.objects.values().order_by('-overall_marking')
-    influ_list= {'influencers': influencers}
+    influencers2= []
+    for i in influencers:
+        x= i['channel_name']
+        channel_name= x.lower()
+        y= i['desc']
+        desc= y.lower()
+        z= i['category']
+        category= z.lower()
+        zz= i['tags']
+        tags= zz.lower()
+        if query in channel_name or query in desc or query in category or query in tags:
+            influencers2.append(i)
+    influ_list= {'influencers': influencers2}
     
     return render(request, 'home/search.html', influ_list)
     

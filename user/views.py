@@ -50,7 +50,7 @@ def Userdetails(request):
         newuserdetails.save()
 
         # To save fetch stats of channel and add them ti database
-        stats_main.channel_stats(user, language, state)
+        stats_main.channel_stats(user, language, state, tags)
 
         return redirect('/')
 

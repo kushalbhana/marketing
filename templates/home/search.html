@@ -69,8 +69,13 @@
         padding-top: 20px;
     }
 
-    .col-lg-4{
+    .col-lg-4 {
         display: inline-block;
+    }
+
+    #sort{
+        
+        padding-bottom: 10px;
     }
 </style>
 
@@ -90,24 +95,80 @@
                 </a></div>
             <!-- end col -->
         </div>
+
+
+
+        <div class="btn-group" id='sort'>
+            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false" >
+                Sort
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
+                <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
+                <hr>
+                <li><a class="dropdown-item" href="#">Average views: Low to High</a></li>
+                <li><a class="dropdown-item" href="#">Average views: High to Low</a></li>
+                
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Subscribers: Low to High</a></li>
+                <li><a class="dropdown-item" href="#">Subscribers: High to Low</a></li>
+            </ul>
+
+            <button type="button" class="btn btn-secondary dropdown-toggle mx-2" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Fliter
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+        </div>
         <!-- end row -->
         <div class="row">
 
-{% for i in influencers %}
+
+
+           
+
+
+
+
+
+            {% for i in influencers %}
             <div class="col-lg-4">
                 <div class="text-center card-box">
                     <div class="member-card pt-2 pb-2">
-                        <div class="thumb-lg member-thumb mx-auto"><img src="{{i.logo}}" class="rounded-circle img-thumbnail" alt="profile-image"></div>
+                        <div class="thumb-lg member-thumb mx-auto"><img src="{{i.logo_low}}"
+                                class="rounded-circle img-thumbnail" alt="profile-image"></div>
                         <div class="">
                             <h4>{{i.channel_name}}</h4>
-                            <p class="text-muted">@Founder <span>| </span><span><a href="#" class="text-pink">websitename.com</a></span></p>
+                            <p class="text-muted">@Category <span>| </span><span><a href="#"
+                                        class="text-pink">{{i.category}}</a></span></p>
                         </div>
                         <ul class="social-links list-inline">
-                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
+                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                    class="tooltips" href="" data-original-title="Facebook"><i
+                                        class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                    class="tooltips" href="" data-original-title="Twitter"><i
+                                        class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
+                                    class="tooltips" href="" data-original-title="Instagram"><i
+                                        class="fa fa-instagram"></i></a></li>
                         </ul>
-                        <button type="button" class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light">Add to List</button>
+                        <button type="button" class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light">Add
+                            to List</button>
+                        <button type="button"
+                            class="btn btn-outline-success mt-3 btn-rounded waves-effect w-md waves-light">View
+                            Profile</button>
                         <div class="mt-4">
                             <div class="row">
                                 <div class="col-4">

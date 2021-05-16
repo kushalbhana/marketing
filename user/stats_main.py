@@ -75,7 +75,7 @@ def total_views_analitics(total_avg_views):
 
 # To add statistics of channel and videos
 
-def channel_stats(user, language, state):
+def channel_stats(user, language, state, tags):
     userx= extendeduser.objects.get(user=user)
     link = userx.link
     if 'https://www.youtube.com/channel/' in link:
@@ -97,6 +97,7 @@ def channel_stats(user, language, state):
         channel_name= data[0]['title']
         country= data[0]['country']
         channel_logo= data[0]['thumbnails']['medium']['url']
+        channel_logo_low= data[0]['thumbnails']['default']['url']
         content_language= language
 
         six_videos= get_all_videos(user)
@@ -128,6 +129,13 @@ def channel_stats(user, language, state):
                 eight_video= int(i[1]['viewCount'])
         
         total_avg_views= (fourth_video + fifth_video + sixth_video + seventh_video + eight_video)// (init_video-3)
+
+
+        # To fetch the category of perticular user
+        cate= extendeduser.objects.values().filter(user=user)
+        cateuser= cate[0]['category']
+        print(cate)
+        
 
 
         initialfs= 1
@@ -196,7 +204,7 @@ def channel_stats(user, language, state):
         total_avg_views_analytics= total_views_analitics(total_avg_views)
         overall_marking= total_avg_views_analytics + like_ratio + subs_to_views_ratio
         overall_rating= (overall_marking/70)*100
-        total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user, desc= channel_desc, logo=channel_logo, country=country, language=content_language, channel_name=channel_name, state= state, avg_views= total_avg_views, overall_marking=overall_marking)
+        total_channnel_stats= Channel_statistics(total_views=ttl_views, total_subs=ttl_subs, total_videos=videoCount, user=user, username= user, desc= channel_desc, logo=channel_logo, country=country, language=content_language, channel_name=channel_name, state= state, avg_views= total_avg_views, overall_marking=overall_marking, category= cateuser, logo_low= channel_logo_low, tags=tags)
         total_channnel_stats.save()
 
 
