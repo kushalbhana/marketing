@@ -73,9 +73,23 @@
         display: inline-block;
     }
 
-    #sort{
-        
+    #sort {
+
         padding-bottom: 10px;
+    }
+
+    #Filter-modal {
+        padding-bottom: 16px;
+        width: 70px;
+    }
+
+    .form-control-info {
+        width: 440px;
+        margin-left: 20px;
+    }
+
+    .form-label {
+        padding-left: 20px;
     }
 </style>
 
@@ -99,8 +113,7 @@
 
 
         <div class="btn-group" id='sort'>
-            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
-                aria-expanded="false" >
+            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 Sort
             </button>
             <ul class="dropdown-menu">
@@ -109,34 +122,94 @@
                 <hr>
                 <li><a class="dropdown-item" href="#">Average views: Low to High</a></li>
                 <li><a class="dropdown-item" href="#">Average views: High to Low</a></li>
-                
+
                 <li>
                     <hr class="dropdown-divider">
                 </li>
                 <li><a class="dropdown-item" href="#">Subscribers: Low to High</a></li>
                 <li><a class="dropdown-item" href="#">Subscribers: High to Low</a></li>
             </ul>
-
-            <button type="button" class="btn btn-secondary dropdown-toggle mx-2" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Fliter
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
         </div>
+
+
+        <!-- Filter Modal -->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" id='Filter-modal'
+            data-bs-target="#Filtermodal">
+            Filter
+        </button>
+
+        <!--Filter Modal -->
+        <form>
+            <div class="modal fade" id="Filtermodal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3 my-3">
+                                <label for="exampleInputEmail1" class="form-label-danger">Category</label>
+                                <select class="form-select-info" aria-label="Default select example" id='category'
+                                    name='category'>
+                                    <option value='' selected>Open this select menu</option>
+                                    <option value="Film and Animations">Film and Animations</option>
+                                    <option value="Autos & Vehicles">Autos & Vehicles</option>
+                                    <option value="Pets & Animals">Pets & Animals</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Travel & Events">Travel & Events</option>
+                                    <option value="Gaming">Gaming</option>
+                                    <option value="People & Blog">People & Blog</option>
+                                    <option value="Comedy">Comedy</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="News & Politics">News & Politics </option>
+                                    <option value="Fashion">Fashion</option>
+                                    <option value="Howto">Howto</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Science & Technology">Science & Technology</option>
+                                    <option value="Non Profits & Activism">Non Profits & Activism</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label"> Minimum Views</label>
+                            <input type="text" class="form-control-info" id="min_views" name='min_views'
+                                aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Minimum Subscribers</label>
+                            <input type="text" class="form-control-info" id="min_subs" name='min_subs'
+                                aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Maximum budget</label>
+                            <input type="text" class="form-control-info" id="max_budget" name='max_budget'
+                                aria-describedby="emailHelp">
+                        </div>
+
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
         <!-- end row -->
         <div class="row">
 
 
 
-           
+
 
 
 
@@ -145,7 +218,7 @@
             {% for i in influencers %}
             <div class="col-lg-4">
                 <div class="text-center card-box">
-                    <div class="member-card pt-2 pb-2">
+                    <div class="member-card pt-2 pb-2" id={{i.user_id}}>
                         <div class="thumb-lg member-thumb mx-auto"><img src="{{i.logo_low}}"
                                 class="rounded-circle img-thumbnail" alt="profile-image"></div>
                         <div class="">
@@ -164,7 +237,7 @@
                                     class="tooltips" href="" data-original-title="Instagram"><i
                                         class="fa fa-instagram"></i></a></li>
                         </ul>
-                        <button type="button" class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light">Add
+                        <button type="button" class="cart" >Add
                             to List</button>
                         <button type="button"
                             class="btn btn-outline-success mt-3 btn-rounded waves-effect w-md waves-light">View
@@ -223,3 +296,20 @@
 
 
 {% endblock body %}
+
+{% block js %}
+<script>
+console.log('working');
+if (localStorage.getItem('cart') == null){
+var cart= {};
+}
+else{
+cart= JSON.parse(localStorage.getItem('cart'));
+}
+
+$('.cart').click(function(){
+console.log('clicked');
+});
+</script>
+
+{% endblock js %}

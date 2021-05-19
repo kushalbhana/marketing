@@ -19,7 +19,15 @@ class extendeduser(models.Model):
     channel_type= models.CharField(max_length=50)
     link= models.TextField(max_length=100)
     category= models.CharField(max_length=50)
+    Min_amount= models.CharField(max_length=50)
     user= models.ForeignKey(User, on_delete= models.CASCADE)
+    firstname= models.CharField(max_length=20)
+    lastname= models.CharField(max_length=20)
+    phnno= models.CharField(max_length=12, default='')
+    gender= models.CharField(max_length=8)
+    tags=models.CharField(max_length=50, default='')
+    state= models.CharField(max_length=30)
+    id_store= models.TextField()
     
 
     def __str__(self):

@@ -12,7 +12,14 @@
 
   <title> {% block title %} {% endblock title %} </title>
   {% block css %}
-  <STYLE>A {text-decoration: none;} </STYLE>
+  <STYLE>A {text-decoration: none;};
+  
+  
+ 
+  
+  
+  
+   </STYLE>
   {% endblock css %}  <!--For css-->
 
 <body><!--Body Starts here-->
@@ -79,8 +86,12 @@
     {{request.user}}
   </button>
   <ul class="dropdown-menu dropdown-menu-lg-end">
-    
+    {%if user.first_name == 'advertizer' %}
+    <li><a class="dropdown-item" href="/user/profile">Dashboard</a></li>
+    {%else%}
     <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
+    {%endif%}
+    <li><a class="dropdown-item" href="#">Settings</a></li>
     <li><a class="dropdown-item" href="/logout">Logout</a></li>
   </ul>
 </div>
@@ -92,7 +103,11 @@
 </button>
 
 <!-- Button trigger Signup Page -->
-<a class="btn btn-primary mx-1" href="signup" role="button">Signup</a>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup">
+  Signup
+</button>
+
 {% endif %}
       
     
@@ -109,7 +124,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-    
+ 
 <form action='login', method='post'>{% csrf_token %}
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Username</label>
@@ -130,6 +145,30 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- Signup Modal -->
+<div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">SigUp</h5>
+        
+      </div>
+      <div class="modal-body">
+        <a class="btn btn-primary mx-1" id='signups-as-influencer' href="signup" role="button">Signup As an Influencer</a>
+        <a class="btn btn-secondary mx-1" id='signups-as-influencer' href="signup_advertizer" role="button">Signup As an Advertizer</a>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
   <!--To display Messages-->
  {% for message in messages  %} 
@@ -158,6 +197,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
+
+
+  {% block js %} 
+    {% endblock js %}
 </body>
 
 </html>

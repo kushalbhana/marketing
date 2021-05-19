@@ -1,11 +1,11 @@
-from user.models import Channel_statistics, GraphAnalitycs
-from django.db.models import query
+from user.models import Channel_statistics
 from django.shortcuts import render, HttpResponse, redirect
 from home.models import Contact, extendeduser
 from django.contrib import messages 
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
+from client.models import Advertizerdetail
 
 
 
@@ -123,5 +123,36 @@ def search(request):
     
     
         
+def HandleSignUp_advertizer(request):
+    return render(request, 'home/advertizer_signup.html')
 
-    
+def handle_signup_advertizer(request):
+    if request.method == 'POST':
+        # to create user
+        if request.POST['password1'] == request.POST['password2']:
+            
+
+            # both th password matched
+            # now check previous user exists
+            try:
+                user= User.objects.get(username=request.POST['username'])
+                messages.error(request, 'The Username you entered is already taken')
+                return render(request, 'home/advertizer_signup.html')
+            except User.DoesNotExist:
+                user= User.objects.create_user(username= request.POST['username'], password= request.POST['password1'], email= request.POST['email'], first_name= 'advertizer')
+
+                # Now to fill the data of extended feild
+                new_company= Advertizerdetail(name=request.POST['name'], category=request.POST['category'], address= request.POST['address'], city= request.POST['city'], state= request.POST['state'], zip= request.POST['zip'], phno= request.POST['phno'], user=user, username= user)
+                new_company.save()
+
+                auth.login(request,user)
+                context= {'advertizer_profile': new_company}
+                messages.success(request, 'Account Successfully Created')
+                return render(request, 'client/clientdashboard.html', context)
+
+        else:
+            messages.error(request, 'Both the Passwords you entered does not match')
+            return render(request, 'home/signup.html')
+    else:
+        return render(request, 'register.html')
+

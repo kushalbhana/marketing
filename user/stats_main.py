@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from home.models import extendeduser
 from django.contrib.auth.models import User
-from user.models import UserDetails, Channel_statistics, GraphAnalitycs
+from user.models import Channel_statistics, GraphAnalitycs
 from user.statistics import YTstats
 import requests
 import json
