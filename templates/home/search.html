@@ -98,7 +98,7 @@
 
 {% load humanize%}
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
 <div class="content">
     <div class="container">
         <div class="row">
@@ -218,11 +218,13 @@
             {% for i in influencers %}
             <div class="col-lg-4">
                 <div class="text-center card-box">
-                    <div class="member-card pt-2 pb-2" id={{i.user_id}}>
-                        <div class="thumb-lg member-thumb mx-auto"><img src="{{i.logo_low}}"
-                                class="rounded-circle img-thumbnail" alt="profile-image"></div>
+                    <div class="member-card pt-2 productContainer pb-2">
+                        <div class="thumb-lg member-thumb  mx-auto"><img src="{{i.logo_low}}"
+                                class="rounded-circle channellogo img-thumbnail" alt="profile-image"></div>
                         <div class="">
-                            <h4>{{i.channel_name}}</h4>
+                            <h4 class='channelname'>{{i.channel_name}}</h4>
+                            <p class='user_id' hidden>{{i.user_id}}</p>
+                            <p class='username' hidden>{{i.username}}</p>
                             <p class="text-muted">@Category <span>| </span><span><a href="#"
                                         class="text-pink">{{i.category}}</a></span></p>
                         </div>
@@ -237,8 +239,17 @@
                                     class="tooltips" href="" data-original-title="Instagram"><i
                                         class="fa fa-instagram"></i></a></li>
                         </ul>
-                        <button type="button" class="cart" >Add
-                            to List</button>
+
+
+
+
+
+
+
+                        <button type="button" id='{{i.user_id}}'
+                        class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light" 
+                        onclick="add_to_cart('{{i.user_id}}', '{{i.channel_name}}', '{{i.logo_low}}', '{{i.username}}')">
+                            Add to List</button>
                         <button type="button"
                             class="btn btn-outline-success mt-3 btn-rounded waves-effect w-md waves-light">View
                             Profile</button>
@@ -298,18 +309,106 @@
 {% endblock body %}
 
 {% block js %}
+
 <script>
-console.log('working');
-if (localStorage.getItem('cart') == null){
-var cart= {};
-}
-else{
-cart= JSON.parse(localStorage.getItem('cart'));
+
+
+
+function add_to_cart(pid, pname, logo, username){
+let cart= localStorage.getItem('cart');
+
+ if (cart==null){
+     let products= [];
+     let product= {productId: pid, productName: pname, productLogo: logo, productQuantity: 1, productusername: username};
+     products.push(product)
+     localStorage.setItem( 'cart' ,JSON.stringify(products))
+     console.log('product added')
+    
+ }else{
+     let pcart= JSON.parse(localStorage.getItem('cart'))
+     let oldproduct= pcart.find((item) => item.productId== pid)
+     let product= {productId: pid, productName: pname, productLogo: logo, productQuantity: 1, productusername: username};
+
+     if  (oldproduct){
+            oldproduct.productQuantity = oldproduct.productQuantity + 1;
+            pcart.map((item)=>{
+                if (item.productId==oldproduct){
+                    item.productQuantity= oldproduct.productQuantity;
+                }
+            })
+            localStorage.setItem( 'cart' ,JSON.stringify(pcart));
+            console.log('product quantity increases')
+     }else{ 
+        
+        pcart.push(product);
+        localStorage.setItem( 'cart' ,JSON.stringify(pcart));
+        console.log('product added')
+    }
+        
+        
+    
+ }
+ updateCart()
+ 
 }
 
-$('.cart').click(function(){
-console.log('clicked');
-});
+
+//update cart
+function updateCart(){
+    let cartString= localStorage.getItem('cart');
+    let cart= JSON.parse(cartString);
+    if (cart==null || cart.length==0){
+        console.log('Cart is empty')
+        $(".cart-items").html("( 0 )");
+        $(".cart-body").html("<h3>Cart do not have any Item</h3>")
+        $(".checkout-btn").addClass('disabled');
+    }else{
+        console.log(cart)
+        $(".cart-items").html(`(${cart.length})`);
+        let table=`
+               <table class='table'>
+                <thead class= 'thead-light'>
+                    <tr>
+                        <th> Item name </th>
+                        <th> Item Channel_name </th>
+                        <th> Item username </th>
+                        <th> Action </th>
+                    </tr>
+                    </thead>
+        
+        
+        
+        
+                   `;
+                    cart.map((item)=>{
+                        table+=`
+                        
+                        <tr>
+
+                            <td><img src="${item.productLogo}"></td>
+                            <td><b>${item.productName}</b></td>
+                            <td>@${item.productusername}</td>
+                            <td><button class='btn btn-danger btn-sm'>Remove</button></td>
+
+                            </tr>
+                        
+                        
+                        `
+                    })
+
+
+                   table= table+`</table>`
+                   $(".cart-body").html(table)
+    }
+}
+
+updateCart()
+
+    
+
+
+
+
 </script>
 
 {% endblock js %}
