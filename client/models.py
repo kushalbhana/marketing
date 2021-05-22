@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.shortcuts import render
 
 # Create your models here.
 class Advertizerdetail(models.Model):
@@ -18,3 +19,13 @@ class Advertizerdetail(models.Model):
 
     def __str__(self):
          return self.username
+
+class Cart(models.Model):
+    cart_no= models.AutoField(primary_key=True)
+    items_json= models.CharField(max_length=5000)
+    name= models.ForeignKey(User, on_delete=models.CASCADE)
+    list_name= models.CharField(max_length=50)
+    campaign_name= models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.list_name

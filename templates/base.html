@@ -14,6 +14,31 @@
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
   
+
+
+
+
+
+  <!--Dashboard-->
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Sidebar template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!--Dashboard Over-->
+
+
+
+
   <title> {% block title %} {% endblock title %} </title>
   {% block css %}
   <STYLE>
@@ -39,7 +64,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">GrabEarth</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -112,7 +137,7 @@
     {% if user.is_authenticated %}
     <div class="btn-group">
       <button type="button" class="btn btn-secondary dropdown-toggle" style="margin-right: 20px;"
-        data-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+        data-toggle="dropdown" data-display="static" aria-expanded="false">
         {{request.user}}
       </button>
       <ul class="dropdown-menu dropdown-menu-lg-end">
@@ -129,13 +154,13 @@
 
     {% else %}
 <!-- Button to  trigger Login modal -->
-    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#exampleModal">
       Login
     </button>
 
     <!-- Button trigger Signup Page -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup">
       Signup
     </button>
 
@@ -151,7 +176,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
 
@@ -187,9 +212,9 @@
 
         </div>
         <div class="modal-body">
-          <a class="btn btn-primary mx-1" id='signups-as-influencer' href="signup" role="button">Signup As an
+          <a class="btn btn-primary mx-1" id='signups-as-influencer' href="/signup" role="button">Signup As an
             Influencer</a>
-          <a class="btn btn-secondary mx-1" id='signups-as-influencer' href="signup_advertizer" role="button">Signup As
+          <a class="btn btn-secondary mx-1" id='signups-as-influencer' href="/signup_advertizer" role="button">Signup As
             an Advertizer</a>
         </div>
         <div class="modal-footer">
@@ -207,7 +232,7 @@
 
   <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
     <strong>Message: </strong> {{message}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
   </div>
 
   {% endfor %}
@@ -226,12 +251,14 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary checkout-btn">Save and add to Dashboard</button>
+        <button type="button" class="btn btn-primary checkout-btn" onclick='goToCheckout()'>Save and add to Dashboard</button>
       </div>
     </div>
   </div>
 </div>
-{% block js %}<script>
+
+  {% block body %}{% endblock body %}
+<script>{% block js %}
 
 
 
@@ -243,7 +270,7 @@ let cart= localStorage.getItem('cart');
      let product= {productId: pid, productName: pname, productLogo: logo, productQuantity: 1, productusername: username};
      products.push(product)
      localStorage.setItem( 'cart' ,JSON.stringify(products))
-     console.log('product added')
+     
     
  }else{
      let pcart= JSON.parse(localStorage.getItem('cart'))
@@ -258,12 +285,12 @@ let cart= localStorage.getItem('cart');
                 }
             })
             localStorage.setItem( 'cart' ,JSON.stringify(pcart));
-            console.log('product quantity increases')
+            
      }else{ 
         
         pcart.push(product);
         localStorage.setItem( 'cart' ,JSON.stringify(pcart));
-        console.log('product added')
+        
     }
         
         
@@ -309,7 +336,7 @@ function updateCart(){
                             <td><img src="${item.productLogo}"></td>
                             <td><b>${item.productName}</b></td>
                             <td>@${item.productusername}</td>
-                            <td><button class='btn btn-danger btn-sm'>Remove</button></td>
+                            <td><button onclick='deleteItemFromCart(${item.productId})' class='btn btn-danger btn-sm'>Remove</button></td>
 
                             </tr>
                         
@@ -320,19 +347,42 @@ function updateCart(){
 
                    table= table+`</table>`
                    $(".cart-body").html(table)
+                   $(".checkout-btn").removeClass('disabled');
     }
 }
 
-updateCart()
 
-    
+function deleteItemFromCart(pid){
+  let cart= JSON.parse(localStorage.getItem('cart'));
+  let newcart= cart.filter((item)=> item.productId != pid);
+  localStorage.setItem('cart', JSON.stringify(newcart));
+  updateCart();
+
+}
+
+
+function goToCheckout(){
+  window.location= '/client/checkout'
+}
+
+$(document).ready(function(){
+  updateCart()
+})
+
+let cart= localStorage.getItem('cart');
+$('#allmyinfluencers').val(JSON.stringify(cart));
+
+
+{% if thank%}
+
+alert('Your list has been saved to Dashboard. Please visit dashboard to continue.');
+document.location= "/";
+{% endif%}
 
 
 
 
-</script>{% endblock js %}
-  {% block body %}{% endblock body %}
-
+{% endblock js %}</script>
 
 
 
