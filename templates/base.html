@@ -121,6 +121,7 @@
           
           {%endif%}
 
+
 <!--Search Functions-->
         <form class="d-flex mx-3" action='/search/' method='get'>
           <input class="form-control me-2" type="search" name='search' id='search' placeholder="Search"
@@ -135,21 +136,14 @@
 
 <!--Signup Login button with Profile Display-->
     {% if user.is_authenticated %}
-    <div class="btn-group">
-      <button type="button" class="btn btn-secondary dropdown-toggle" style="margin-right: 20px;"
-        data-toggle="dropdown" data-display="static" aria-expanded="false">
-        {{request.user}}
-      </button>
-      <ul class="dropdown-menu dropdown-menu-lg-end">
-        {%if user.first_name == 'advertizer' %}
-        <li><a class="dropdown-item" href="/user/profile">Dashboard</a></li>
-        {%else%}
-        <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
-        {%endif%}
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="/logout">Logout</a></li>
-      </ul>
-    </div>
+    {%if user.first_name == 'advertizer' %}
+    <a class="btn btn-primary" href="/client/" role="button">{{request.user}}</a>
+    {%else%}
+    <a class="btn btn-primary" href="/user/profile" role="button">{{request.user}}</a>
+        
+      {%endif%}
+      
+        
 
 
     {% else %}
@@ -223,6 +217,7 @@
       </div>
     </div>
   </div>
+
 
 
 
@@ -379,6 +374,41 @@ alert('Your list has been saved to Dashboard. Please visit dashboard to continue
 document.location= "/";
 {% endif%}
 
+jQuery(function ($) {
+
+    $(".sidebar-dropdown > a").click(function() {
+  $(".sidebar-submenu").slideUp(200);
+  if (
+    $(this)
+      .parent()
+      .hasClass("active")
+  ) {
+    $(".sidebar-dropdown").removeClass("active");
+    $(this)
+      .parent()
+      .removeClass("active");
+  } else {
+    $(".sidebar-dropdown").removeClass("active");
+    $(this)
+      .next(".sidebar-submenu")
+      .slideDown(200);
+    $(this)
+      .parent()
+      .addClass("active");
+  }
+});
+
+$("#close-sidebar").click(function() {
+  $(".page-wrapper").removeClass("toggled");
+});
+$("#show-sidebar").click(function() {
+  $(".page-wrapper").addClass("toggled");
+});
+
+
+   
+   
+});
 
 
 

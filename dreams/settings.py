@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'client.apps.ClientConfig',
     'django.contrib.humanize',
+    'chat'
 ]
 
 MIDDLEWARE = [

@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 def ClientDashBoard(request):
-    return HttpResponse('This is client')
+    return render(request, 'client/clientdashboard.html')
 
 def cartcheckout(request):
     return render(request, 'client/checkout.html')
