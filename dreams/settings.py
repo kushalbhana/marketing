@@ -45,8 +45,9 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'user.apps.UserConfig',
     'client.apps.ClientConfig',
+    'chat.apps.ChatConfig',
     'django.contrib.humanize',
-    'chat'
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +79,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'dreams.wsgi.application'
+ASGI_APPLICATION = 'dreams.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 
 # Database

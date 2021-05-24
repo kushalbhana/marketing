@@ -24,6 +24,7 @@ admin.site.site_title="Dreams Admin Panel"
 admin.site.index_title="Dreams Admin Panel"
 
 urlpatterns = [
+    path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('blog/', include('blog.urls')),
